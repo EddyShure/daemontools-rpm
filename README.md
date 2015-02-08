@@ -12,12 +12,20 @@ Supported distribution
 How to use
 ----------
 
+### ATTENTION!
+
+This is a fork. It moves the binaries to /command for better usability.
+To use the binaries, please make some symlinks.
+```
+$ sudo ln -s /command/* /usr/local/bin/
+```
+
 ### Common
 
 Clone daemontools-rpm
 
 ```
-$ git clone https://github.com/kteru/daemontools-rpm.git
+$ git clone https://github.com/EddyShure/daemontools-rpm.git
 ```
 
 Get source code
