@@ -3,7 +3,7 @@ Description=daemontools
 After=sysinit.target
 
 [Service]
-ExecStart=/usr/bin/svscanboot
+ExecStart=/command/svscanboot
 Restart=always
 
 [Install]

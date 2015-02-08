@@ -40,9 +40,9 @@ If the disk fills up, it pauses and tries again, without losing any data.
 
 %install
 rm -rf ${RPM_BUILD_ROOT}
-mkdir -p ${RPM_BUILD_ROOT}/usr/bin
-cp -p command/* ${RPM_BUILD_ROOT}/usr/bin
-cp -fp ${RPM_SOURCE_DIR}/svscanboot ${RPM_BUILD_ROOT}/usr/bin
+mkdir -p ${RPM_BUILD_ROOT}/command
+cp -p command/* ${RPM_BUILD_ROOT}/command
+cp -fp ${RPM_SOURCE_DIR}/svscanboot ${RPM_BUILD_ROOT}/command
 
 %if "%{_dist}" == ".el7"
 mkdir -p ${RPM_BUILD_ROOT}/usr/lib/systemd/system
@@ -60,12 +60,13 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %post
 [ -d /service ] || mkdir /service
+[ -d /command ] || mkdir /command
 
 %if "%{_dist}" == ".el6"
 initctl reload-configuration
 %endif
 %if "%{_dist}" == ".el5" || "%{_dist}" == ".el4"
-echo 'SV:123456:respawn:/usr/bin/svscanboot' >> /etc/inittab
+echo 'SV:123456:respawn:/command/svscanboot' >> /etc/inittab
 %endif
 
 
@@ -95,23 +96,23 @@ rmdir /service 2> /dev/null ||:
 
 
 %files
-%attr(0755,root,root) /usr/bin/envdir
-%attr(0755,root,root) /usr/bin/envuidgid
-%attr(0755,root,root) /usr/bin/fghack
-%attr(0755,root,root) /usr/bin/multilog
-%attr(0755,root,root) /usr/bin/pgrphack
-%attr(0755,root,root) /usr/bin/readproctitle
-%attr(0755,root,root) /usr/bin/setlock
-%attr(0755,root,root) /usr/bin/setuidgid
-%attr(0755,root,root) /usr/bin/softlimit
-%attr(0755,root,root) /usr/bin/supervise
-%attr(0755,root,root) /usr/bin/svc
-%attr(0755,root,root) /usr/bin/svok
-%attr(0755,root,root) /usr/bin/svscan
-%attr(0555,root,root) /usr/bin/svscanboot
-%attr(0755,root,root) /usr/bin/svstat
-%attr(0755,root,root) /usr/bin/tai64n
-%attr(0755,root,root) /usr/bin/tai64nlocal
+%attr(0755,root,root) /command/envdir
+%attr(0755,root,root) /command/envuidgid
+%attr(0755,root,root) /command/fghack
+%attr(0755,root,root) /command/multilog
+%attr(0755,root,root) /command/pgrphack
+%attr(0755,root,root) /command/readproctitle
+%attr(0755,root,root) /command/setlock
+%attr(0755,root,root) /command/setuidgid
+%attr(0755,root,root) /command/softlimit
+%attr(0755,root,root) /command/supervise
+%attr(0755,root,root) /command/svc
+%attr(0755,root,root) /command/svok
+%attr(0755,root,root) /command/svscan
+%attr(0555,root,root) /command/svscanboot
+%attr(0755,root,root) /command/svstat
+%attr(0755,root,root) /command/tai64n
+%attr(0755,root,root) /command/tai64nlocal
 %if "%{_dist}" == ".el7"
 %attr(0644,root,root) /usr/lib/systemd/system/daemontools.service
 %endif
